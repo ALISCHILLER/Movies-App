@@ -48,5 +48,10 @@
         app:popEnterAnim="@android:anim/slide_in_left"
         app:popExitAnim="@android:anim/slide_out_right"
         />
+    <fragment
+        android:id="@+id/splash_Fragment"
+        android:name="com.msa.movie_msa.view.fragment.Splash_Fragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" />
 
 </navigation>
