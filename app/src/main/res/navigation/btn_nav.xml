@@ -5,11 +5,9 @@
     android:id="@+id/btn_nav"
     app:startDestination="@id/movies_list_fragment">
 
-
     <fragment
         android:id="@+id/movies_list_fragment"
         android:name="com.msa.movie_msa.view.fragment.Movies_List_fragment"
-        android:label="fragment_movies__list"
         tools:layout="@layout/fragment_movies__list" />
     <fragment
         android:id="@+id/profile_fragment"

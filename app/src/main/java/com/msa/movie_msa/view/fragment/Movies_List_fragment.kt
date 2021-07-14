@@ -1,37 +1,46 @@
 package com.msa.movie_msa.view.fragment
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.msa.movie_msa.R
+
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.msa.movie_msa.data.remote.model.Data
+import com.msa.movie_msa.data.remote.model.Response_Movie_All
 import com.msa.movie_msa.databinding.FragmentMoviesListBinding
+import com.msa.movie_msa.view.adapter.Movies_List_Adapter
+import com.msa.movie_msa.view.base.BasePagingAdapter
+import com.msa.movie_msa.view.base.BasePagingFragment
+import com.msa.movie_msa.view.base.getNavController
+import com.msa.movie_msa.viewmodel.ViewModel_List_Movie
+import dagger.hilt.android.AndroidEntryPoint
 
 
 /**
- * A simple [Fragment] subclass.
- * Use the [Movies_List_fragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Created by Ali Soleimani on 08,May,2021
+ * Github https://github.com/ALISCHILLER
+ * Iran.
  */
-class Movies_List_fragment : Fragment() {
-    private var _vBinding:FragmentMoviesListBinding?=null
-    private val vBinding get() = _vBinding!!
+@AndroidEntryPoint
+class Movies_List_fragment :BasePagingFragment<FragmentMoviesListBinding,ViewModel_List_Movie, Data>(){
+
+    override val viewModel: ViewModel_List_Movie by viewModels()
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        _vBinding= FragmentMoviesListBinding.inflate(inflater,container,false)
-        return vBinding.root
+    override val pagingAdapter: BasePagingAdapter<Data, out ViewDataBinding> by lazy {
+        Movies_List_Adapter(
+            itemClickListener = {
+                toMovieDetail(it)
+            }
+        )
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override val swipeRefreshLayout: SwipeRefreshLayout
+        get() = viewBinding.refreshLayout
 
+    override val recyclerView: RecyclerView
+        get() = viewBinding.recyclerView
+
+    private fun toMovieDetail(movie: Data) {
     }
-
 }

@@ -26,7 +26,7 @@ import javax.inject.Inject
 import kotlin.math.log
 
  @HiltViewModel
-class ViewModel_Movie @Inject constructor(
+class ViewModel_Login_Regiter_Movie @Inject constructor(
     @ApplicationContext private val context: Context,
     private val repositoryInterface: RepositoryInterface,
     private val networkHelper: NetworkHelper,

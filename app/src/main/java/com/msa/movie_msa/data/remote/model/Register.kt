@@ -1,7 +1,9 @@
 package com.msa.movie_msa.data.remote.model
 
 import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class Register(
     @SerializedName(" created_at")
     val created_at: String,

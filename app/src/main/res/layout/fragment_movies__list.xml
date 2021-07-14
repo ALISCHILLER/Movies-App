@@ -1,66 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.msa.movie_msa.view.fragment.Movies_List_fragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/breakingnews_appbar_layout"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.msa.movie_msa.view.base.BasePagingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="4dp"
-        tools:ignore="MissingConstraints">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:isRefreshing="@{ viewModel.isRefresh }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent" />
 
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <androidx.appcompat.widget.AppCompatTextView
-                        style="@style/HorizontalNewsHeadline"
-                        android:layout_weight="3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="Movies_MsA"
-                        android:textColor="@color/black" />
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/menu"
-                        android:layout_width="34dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_menu"
-                        android:layout_marginEnd="10dp"
-                        />
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progress_loading"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="@dimen/dp_48"
+            android:layout_height="@dimen/dp_48"
+            android:layout_marginBottom="@dimen/dp_16"
+            app:isLoading="@{  viewModel.isLoading }"
+            app:layout_constraintBottom_toTopOf="@id/text_empty"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-                </LinearLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:text="No data"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:visibility="@{ viewModel.isEmptyList() ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toTopOf="@id/button_reload"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progress_loading"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-            </LinearLayout>
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/headlines_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/breakingnews_appbar_layout" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_reload"
+            clickSafe="@{ () -> viewModel.reload() }"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Reload"
+            android:visibility="@{ viewModel.isEmptyList() ? View.VISIBLE : View.GONE }"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_empty"
+            app:layout_constraintWidth_percent="0.3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

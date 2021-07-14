@@ -4,9 +4,12 @@ import android.util.Log
 import com.msa.movie_msa.data.local.dao.Login_Dao
 import com.msa.movie_msa.data.local.model.Login_Entity
 import com.msa.movie_msa.data.remote.ApiService
+import com.msa.movie_msa.data.remote.Response.GetMovieListResponse
 import com.msa.movie_msa.data.remote.model.Login
 import com.msa.movie_msa.data.remote.model.Register
+import com.msa.movie_msa.data.remote.model.Response_Movie_All
 import com.msa.movie_msa.data.remote.requests.LoginRequest
+import com.msa.movie_msa.data.remote.requests.MoviesListRequest
 import com.msa.movie_msa.data.remote.requests.RegistraRequest
 import com.msa.movie_msa.util.Resource
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +17,11 @@ import kotlinx.coroutines.flow.*
 import retrofit2.Response
 import javax.inject.Inject
 
+/**
+ * Created by Ali Soleimani on 08,May,2021
+ * Github https://github.com/ALISCHILLER
+ * Iran.
+ */
 class RepositoryIm @Inject constructor(
    private val apiService: ApiService,
    private val loginDao: Login_Dao
@@ -52,8 +60,19 @@ class RepositoryIm @Inject constructor(
         return apiService.login(authLoginRequest)
     }
 
+    override suspend fun moviesList(moviesListRequest: MoviesListRequest): Flow<Resource<Response_Movie_All>> {
+        TODO("Not yet implemented")
+    }
 
+    override suspend fun getMovieList(page: Int): Response_Movie_All {
+        return apiService.MoviesList(page)
+    }
 
 
 
 }
+/**
+ * Created by Ali Soleimani on 08,May,2021
+ * Github https://github.com/ALISCHILLER
+ * Iran.
+ */

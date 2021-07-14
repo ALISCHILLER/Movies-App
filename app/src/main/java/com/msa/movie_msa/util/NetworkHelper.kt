@@ -7,7 +7,11 @@ import android.os.Build
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
-
+/**
+ * Created by Ali Soleimani on 08,May,2021
+ * Github https://github.com/ALISCHILLER
+ * Iran.
+ */
 @Singleton
 class NetworkHelper @Inject constructor(@ApplicationContext private val context: Context) {
 

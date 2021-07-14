@@ -10,9 +10,9 @@ import com.msa.movie_msa.databinding.FragmentProfileBinding
 
 
 /**
- * A simple [Fragment] subclass.
- * Use the [Profile_fragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Created by Ali Soleimani on 08,May,2021
+ * Github https://github.com/ALISCHILLER
+ * Iran.
  */
 class Profile_fragment : Fragment() {
 
