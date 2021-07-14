@@ -16,7 +16,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/search_Fragment"
-        android:name="com.msa.movie_msa.Search_Fragment"
+        android:name="com.msa.movie_msa.view.fragment.Search_Fragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
 
